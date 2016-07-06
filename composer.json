@@ -1,0 +1,25 @@
+{
+    "name": "erenmustafaozdal/laravel-page-module",
+    "description": "laravel 5.1 page management module package",
+    "license": "MT",
+    "authors": [
+        {
+            "name": "Eren Mustafa ÖZDAL",
+            "email": "eren.060737@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "ErenMustafaOzdal\\LaravelPageModule\\": "src/"
+        }
+    },
+    "minimum-stability": "beta",
+    "require": {
+        "php": ">=5.5.9",
+        "illuminate/support": "~5",
+        "erenmustafaozdal/laravel-modules-base": "~0.1"
+    },
+    "require-dev": {
+
+    }
+}
