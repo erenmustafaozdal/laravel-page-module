@@ -20,6 +20,10 @@ class LaravelPageModuleServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../config/laravel-page-module.php' => config_path('laravel-page-module.php')
         ], 'config');
+
+        $this->publishes([
+            __DIR__.'/../database/migrations/' => database_path('migrations')
+        ], 'migrations');
     }
 
     /**
@@ -30,11 +34,13 @@ class LaravelPageModuleServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register('ErenMustafaOzdal\LaravelModulesBase\LaravelModulesBaseServiceProvider');
+        $this->app->register('Baum\Providers\BaumServiceProvider');
 
         $this->mergeConfigFrom(
             __DIR__.'/../config/laravel-page-module.php', 'laravel-page-module'
         );
 
+        $router = $this->app['router'];
         // model binding
         $router->model(config('laravel-page-module.url.page'),  'App\Page');
     }

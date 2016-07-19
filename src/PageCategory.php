@@ -6,14 +6,14 @@ use Baum\Node;
 
 use Carbon\Carbon;
 
-class Page extends Node
+class PageCategory extends Node
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'pages';
+    protected $table = 'page_categories';
 
     /**
      * The attributes that are mass assignable.

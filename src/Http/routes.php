@@ -13,16 +13,16 @@ Route::group([
     'namespace' => 'ErenMustafaOzdal\LaravelPageModule\Http\Controllers'
 ], function()
 {
-    /*==========  Page Module  ==========*/
-    Route::resource(config('laravel-page-module.url.page'), 'PageController', [
+    /*==========  Page Category Module  ==========*/
+    Route::resource(config('laravel-page-module.url.page_categories'), 'PageCategoryController', [
         'names' => [
-            'index'     => 'admin.page.index',
-            'create'    => 'admin.page.create',
-            'store'     => 'admin.page.store',
-            'show'      => 'admin.page.show',
-            'edit'      => 'admin.page.edit',
-            'update'    => 'admin.page.update',
-            'destroy'   => 'admin.page.destroy',
+            'index'     => 'admin.page_category.index',
+            'create'    => 'admin.page_category.create',
+            'store'     => 'admin.page_category.store',
+            'show'      => 'admin.page_category.show',
+            'edit'      => 'admin.page_category.edit',
+            'update'    => 'admin.page_category.update',
+            'destroy'   => 'admin.page_category.destroy',
         ]
     ]);
 });

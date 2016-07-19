@@ -10,7 +10,8 @@
     ],
     "autoload": {
         "psr-4": {
-            "ErenMustafaOzdal\\LaravelPageModule\\": "src/"
+            "ErenMustafaOzdal\\LaravelPageModule\\": "src/",
+            "baum/baum": "~1.1"
         }
     },
     "minimum-stability": "beta",
