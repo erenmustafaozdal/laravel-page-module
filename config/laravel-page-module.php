@@ -14,7 +14,7 @@ return [
     |--------------------------------------------------------------------------
     */
     'url' => [
-        'page_categories'           => 'page-categories',       // page categories url
+        'page_category'             => 'page-categories',       // page categories url
         'page'                      => 'pages',                 // pages url
         'admin_url_prefix'          => 'admin',                 // admin dashboard url prefix
         'middleware'                => ['auth', 'permission']   // page module middleware

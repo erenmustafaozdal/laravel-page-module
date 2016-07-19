@@ -14,7 +14,7 @@ Route::group([
 ], function()
 {
     /*==========  Page Category Module  ==========*/
-    Route::resource(config('laravel-page-module.url.page_categories'), 'PageCategoryController', [
+    Route::resource(config('laravel-page-module.url.page_category'), 'PageCategoryController', [
         'names' => [
             'index'     => 'admin.page_category.index',
             'create'    => 'admin.page_category.create',
@@ -23,6 +23,18 @@ Route::group([
             'edit'      => 'admin.page_category.edit',
             'update'    => 'admin.page_category.update',
             'destroy'   => 'admin.page_category.destroy',
+        ]
+    ]);
+    /*==========  Page Module  ==========*/
+    Route::resource(config('laravel-page-module.url.page'), 'PageController', [
+        'names' => [
+            'index'     => 'admin.page.index',
+            'create'    => 'admin.page.create',
+            'store'     => 'admin.page.store',
+            'show'      => 'admin.page.show',
+            'edit'      => 'admin.page.edit',
+            'update'    => 'admin.page.update',
+            'destroy'   => 'admin.page.destroy',
         ]
     ]);
 });
@@ -40,23 +52,23 @@ Route::group([
     'namespace' => 'ErenMustafaOzdal\LaravelPageModule\Http\Controllers'
 ], function()
 {
-    /*==========  Page Module  ==========*/
+    /*==========  Page Category Module  ==========*/
     // api group action
-    Route::post('page/group-action',  [
-        'as' => 'api.page.group',
-        'uses' => 'PageApiController@group'
+    Route::post('page-category/group-action',  [
+        'as' => 'api.page_category.group',
+        'uses' => 'PageCategoryApiController@group'
     ]);
-    // get page edit data for modal edit
-    Route::post('page/{' . config('laravel-page-module.url.page') . '}/fast-edit',  [
-        'as' => 'api.page.fastEdit',
-        'uses' => 'PageApiController@fastEdit'
+    // get page category edit data for modal edit
+    Route::post('page-category/{' . config('laravel-page-module.url.page_category') . '}/fast-edit',  [
+        'as' => 'api.page_category.fastEdit',
+        'uses' => 'PageCategoryApiController@fastEdit'
     ]);
-    Route::resource(config('laravel-page-module.url.page'), 'PageApiController', [
+    Route::resource(config('laravel-page-module.url.page_category'), 'PageCategoryApiController', [
         'names' => [
-            'index'     => 'api.page.index',
-            'store'     => 'api.page.store',
-            'update'    => 'api.page.update',
-            'destroy'   => 'api.page.destroy',
+            'index'     => 'api.page_category.index',
+            'store'     => 'api.page_category.store',
+            'update'    => 'api.page_category.update',
+            'destroy'   => 'api.page_category.destroy',
         ]
     ]);
 });

@@ -18,12 +18,12 @@ class LaravelPageModuleServiceProvider extends ServiceProvider
         }
 
         $this->publishes([
-            __DIR__.'/../config/laravel-page-module.php' => config_path('laravel-page-module.php')
-        ], 'config');
-
-        $this->publishes([
             __DIR__.'/../database/migrations/' => database_path('migrations')
         ], 'migrations');
+
+        $this->publishes([
+            __DIR__.'/../config/laravel-page-module.php' => config_path('laravel-page-module.php')
+        ], 'config');
     }
 
     /**
