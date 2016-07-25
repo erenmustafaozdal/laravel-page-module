@@ -14,13 +14,6 @@ class MigrationLaravelPageModule extends Migration
     {
         Schema::create('page_categories', function (Blueprint $table) {
             $table->increments('id');
-
-            // baum/baum packages ne
-            $table->integer('parent_id')->nullable()->index();
-            $table->integer('lft')->nullable()->index();
-            $table->integer('rgt')->nullable()->index();
-            $table->integer('depth')->nullable();
-
             $table->string('name');
             $table->timestamps();
 
@@ -31,12 +24,6 @@ class MigrationLaravelPageModule extends Migration
             $table->increments('id');
             $table->integer('category_id')->unsigned();
             $table->foreign('category_id')->references('id')->on('page_categories')->onDelete('cascade');
-
-            // baum/baum packages ne
-            $table->integer('parent_id')->nullable()->index();
-            $table->integer('lft')->nullable()->index();
-            $table->integer('rgt')->nullable()->index();
-            $table->integer('depth')->nullable();
 
             $table->string('title');
             $table->string('slug');
