@@ -2,11 +2,10 @@
 
 namespace ErenMustafaOzdal\LaravelPageModule;
 
-use Baum\Node;
-
+use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
-class Page extends Node
+class Page extends Model
 {
     /**
      * The database table used by the model.

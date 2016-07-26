@@ -2,11 +2,10 @@
 
 namespace ErenMustafaOzdal\LaravelPageModule;
 
-use Baum\Node;
-
+use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
-class PageCategory extends Node
+class PageCategory extends Model
 {
     /**
      * The database table used by the model.
@@ -20,7 +19,7 @@ class PageCategory extends Node
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = ['name'];
 
 
 
@@ -44,6 +43,17 @@ class PageCategory extends Node
         // filter id
         if ($request->has('id')) {
             $query->where('id',$request->get('id'));
+        }
+        // filter name
+        if ($request->has('name')) {
+            $query->where('name', 'like', "%{$request->get('name')}%");
+        }
+        // filter created_at
+        if ($request->has('created_at_from')) {
+            $query->where('created_at', '>=', Carbon::parse($request->get('created_at_from')));
+        }
+        if ($request->has('created_at_to')) {
+            $query->where('created_at', '<=', Carbon::parse($request->get('created_at_to')));
         }
         return $query;
     }

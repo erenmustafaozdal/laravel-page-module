@@ -34,7 +34,6 @@ class LaravelPageModuleServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register('ErenMustafaOzdal\LaravelModulesBase\LaravelModulesBaseServiceProvider');
-        $this->app->register('Baum\Providers\BaumServiceProvider');
 
         $this->mergeConfigFrom(
             __DIR__.'/../config/laravel-page-module.php', 'laravel-page-module'
@@ -43,5 +42,6 @@ class LaravelPageModuleServiceProvider extends ServiceProvider
         $router = $this->app['router'];
         // model binding
         $router->model(config('laravel-page-module.url.page'),  'App\Page');
+        $router->model(config('laravel-page-module.url.page_category'),  'App\PageCategory');
     }
 }

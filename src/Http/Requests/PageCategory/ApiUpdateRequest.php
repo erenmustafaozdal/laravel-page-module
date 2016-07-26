@@ -29,7 +29,6 @@ class ApiUpdateRequest extends Request
     {
         return [
             'name'          => 'max:255',
-            'slug'          => 'alpha_dash|max:255|unique:roles,slug,'.$this->segment(3),
             'permissions'   => 'array',
         ];
     }

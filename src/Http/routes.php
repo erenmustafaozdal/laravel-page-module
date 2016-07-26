@@ -25,6 +25,7 @@ Route::group([
             'destroy'   => 'admin.page_category.destroy',
         ]
     ]);
+
     /*==========  Page Module  ==========*/
     Route::resource(config('laravel-page-module.url.page'), 'PageController', [
         'names' => [
@@ -53,10 +54,20 @@ Route::group([
 ], function()
 {
     /*==========  Page Category Module  ==========*/
+    // api roles
+    Route::post('page-category/models',  [
+        'as' => 'api.page_category.models',
+        'uses' => 'PageCategoryApiController@models'
+    ]);
     // api group action
     Route::post('page-category/group-action',  [
         'as' => 'api.page_category.group',
         'uses' => 'PageCategoryApiController@group'
+    ]);
+    // data table detail row
+    Route::get('page-category/{id}/detail',  [
+        'as' => 'api.page_category.detail',
+        'uses' => 'PageCategoryApiController@detail'
     ]);
     // get page category edit data for modal edit
     Route::post('page-category/{' . config('laravel-page-module.url.page_category') . '}/fast-edit',  [
@@ -69,6 +80,32 @@ Route::group([
             'store'     => 'api.page_category.store',
             'update'    => 'api.page_category.update',
             'destroy'   => 'api.page_category.destroy',
+        ]
+    ]);
+
+
+    /*==========  Page Module  ==========*/
+    // api group action
+    Route::post('page/group-action',  [
+        'as' => 'api.page.group',
+        'uses' => 'PageApiController@group'
+    ]);
+    // data table detail row
+    Route::get('page/{id}/detail',  [
+        'as' => 'api.page.detail',
+        'uses' => 'PageApiController@detail'
+    ]);
+    // get page category edit data for modal edit
+    Route::post('page/{' . config('laravel-page-module.url.page') . '}/fast-edit',  [
+        'as' => 'api.page.fastEdit',
+        'uses' => 'PageApiController@fastEdit'
+    ]);
+    Route::resource(config('laravel-page-module.url.page'), 'PageApiController', [
+        'names' => [
+            'index'     => 'api.page.index',
+            'store'     => 'api.page.store',
+            'update'    => 'api.page.update',
+            'destroy'   => 'api.page.destroy',
         ]
     ]);
 });
