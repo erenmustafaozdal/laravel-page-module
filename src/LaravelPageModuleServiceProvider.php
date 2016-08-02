@@ -18,6 +18,10 @@ class LaravelPageModuleServiceProvider extends ServiceProvider
         }
 
         $this->publishes([
+            __DIR__.'/../database/migrations/' => database_path('migrations')
+        ], 'migrations');
+
+        $this->publishes([
             __DIR__.'/../config/laravel-page-module.php' => config_path('laravel-page-module.php')
         ], 'config');
     }
@@ -35,7 +39,9 @@ class LaravelPageModuleServiceProvider extends ServiceProvider
             __DIR__.'/../config/laravel-page-module.php', 'laravel-page-module'
         );
 
+        $router = $this->app['router'];
         // model binding
         $router->model(config('laravel-page-module.url.page'),  'App\Page');
+        $router->model(config('laravel-page-module.url.page_category'),  'App\PageCategory');
     }
 }
