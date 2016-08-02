@@ -70,7 +70,7 @@ Route::group([
         'uses' => 'PageCategoryApiController@detail'
     ]);
     // get page category edit data for modal edit
-    Route::post('page-category/{' . config('laravel-page-module.url.page_category') . '}/fast-edit',  [
+    Route::post('page-category/{id}/fast-edit',  [
         'as' => 'api.page_category.fastEdit',
         'uses' => 'PageCategoryApiController@fastEdit'
     ]);
@@ -96,9 +96,19 @@ Route::group([
         'uses' => 'PageApiController@detail'
     ]);
     // get page category edit data for modal edit
-    Route::post('page/{' . config('laravel-page-module.url.page') . '}/fast-edit',  [
+    Route::post('page/{id}/fast-edit',  [
         'as' => 'api.page.fastEdit',
         'uses' => 'PageApiController@fastEdit'
+    ]);
+    // api publish page
+    Route::post('page/{' . config('laravel-page-module.url.page') . '}/publish',  [
+        'as' => 'api.page.publish',
+        'uses' => 'PageApiController@publish'
+    ]);
+    // api not publish page
+    Route::post('page/{' . config('laravel-page-module.url.page') . '}/not-publish',  [
+        'as' => 'api.page.notPublish',
+        'uses' => 'PageApiController@notPublish'
     ]);
     Route::resource(config('laravel-page-module.url.page'), 'PageApiController', [
         'names' => [

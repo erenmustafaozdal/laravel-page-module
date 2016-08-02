@@ -19,7 +19,17 @@ class Page extends Model
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'category_id',
+        'title',
+        'slug',
+        'content',
+        'description',
+        'meta_title',
+        'meta_description',
+        'meta_keywords',
+        'is_publish'
+    ];
 
 
 
@@ -44,7 +54,50 @@ class Page extends Model
         if ($request->has('id')) {
             $query->where('id',$request->get('id'));
         }
+        // filter title
+        if ($request->has('title')) {
+            $query->where('title', 'like', "%{$request->get('title')}%");
+        }
+        // filter slug
+        if ($request->has('slug')) {
+            $query->where('slug', 'like', "%{$request->get('slug')}%");
+        }
+        // filter category
+        if ($request->has('category')) {
+            $query->whereHas('category', function ($query) use($request) {
+                $query->where('name', 'like', "%{$request->get('category')}%");
+            });
+        }
+        // filter status
+        if ($request->has('status')) {
+            $query->where('is_publish',$request->get('status'));
+        }
+        // filter created_at
+        if ($request->has('created_at_from')) {
+            $query->where('created_at', '>=', Carbon::parse($request->get('created_at_from')));
+        }
+        if ($request->has('created_at_to')) {
+            $query->where('created_at', '<=', Carbon::parse($request->get('created_at_to')));
+        }
         return $query;
+    }
+
+
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Model Relations
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Get the category of the page.
+     */
+    public function category()
+    {
+        return $this->belongsTo('App\PageCategory');
     }
 
 
@@ -65,9 +118,31 @@ class Page extends Model
     public function setSlugAttribute($slug)
     {
         if ( ! $slug) {
-            $slug = str_slug($this->name, '-');
+            $slug = str_slug($this->title, '-');
         }
         $this->attributes['slug'] =  $slug;
+    }
+
+    /**
+     * Set the is_publish attribute.
+     *
+     * @param boolean $value
+     * @return string
+     */
+    public function setIsPublishAttribute($value)
+    {
+        $this->attributes['is_publish'] = $value == 1 || $value === 'true' || $value === true ? true : false;
+    }
+
+    /**
+     * Get the is_publish attribute.
+     *
+     * @param boolean $value
+     * @return string
+     */
+    public function getIsPublishAttribute($value)
+    {
+        return $value == 1 ? true : false;
     }
 
     /**

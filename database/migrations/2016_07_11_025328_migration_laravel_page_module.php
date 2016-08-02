@@ -27,7 +27,7 @@ class MigrationLaravelPageModule extends Migration
 
             $table->string('title');
             $table->string('slug');
-            $table->longText('content');
+            $table->longText('content')->nullable();
             $table->string('description')->nullable();
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();

@@ -29,7 +29,6 @@ class StoreRequest extends Request
     {
         return [
             'name'          => 'required|max:255',
-            'slug'          => 'alpha_dash|max:255|unique:roles',
             'permissions'   => 'array',
         ];
     }

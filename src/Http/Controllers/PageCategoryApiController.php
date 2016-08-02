@@ -69,13 +69,13 @@ class PageCategoryApiController extends AdminBaseController
     /**
      * get model data for edit
      *
-     * @param PageCategory $page_category
+     * @param $id
      * @param Request $request
-     * @return Datatables
+     * @return PageCategory
      */
-    public function fastEdit(PageCategory $page_category, Request $request)
+    public function fastEdit($id, Request $request)
     {
-        return $page_category;
+        return PageCategory::find($id);
     }
 
     /**
@@ -143,7 +143,6 @@ class PageCategoryApiController extends AdminBaseController
      */
     public function models(Request $request)
     {
-        return PageCategory::where('name', 'like', "%{$request->input('query')}%")
-            ->orWhere('slug', 'like', "%{$request->input('query')}%")->get(['id','name']);
+        return PageCategory::where('name', 'like', "%{$request->input('query')}%")->get(['id','name']);
     }
 }
