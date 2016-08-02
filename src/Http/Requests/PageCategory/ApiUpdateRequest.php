@@ -28,8 +28,7 @@ class ApiUpdateRequest extends Request
     public function rules()
     {
         return [
-            'name'          => 'max:255',
-            'permissions'   => 'array',
+            'name'          => 'required|max:255'
         ];
     }
 }

@@ -28,8 +28,7 @@ class ApiStoreRequest extends Request
     public function rules()
     {
         return [
-            'name'          => 'required|max:255',
-            'permissions'   => 'array',
+            'name'          => 'required|max:255'
         ];
     }
 }
