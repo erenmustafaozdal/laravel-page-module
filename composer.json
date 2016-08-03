@@ -17,7 +17,8 @@
     "require": {
         "php": ">=5.5.9",
         "illuminate/support": "~5",
-        "erenmustafaozdal/laravel-modules-base": "~0.1"
+        "erenmustafaozdal/laravel-modules-base": "~0.1",
+        "mews/purifier": "~2.0"
     },
     "require-dev": {
 
