@@ -34,6 +34,7 @@ class LaravelPageModuleServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register('ErenMustafaOzdal\LaravelModulesBase\LaravelModulesBaseServiceProvider');
+        $this->app->register('Mews\Purifier\PurifierServiceProvider');
 
         $this->mergeConfigFrom(
             __DIR__.'/../config/laravel-page-module.php', 'laravel-page-module'

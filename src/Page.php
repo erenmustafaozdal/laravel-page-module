@@ -124,6 +124,18 @@ class Page extends Model
     }
 
     /**
+     * Get the content attribute.
+     * clean iframe for xss atack
+     *
+     * @param string $content
+     * @return string
+     */
+    public function getContentAttribute($content)
+    {
+        return clean($content, 'iframe');
+    }
+
+    /**
      * Set the is_publish attribute.
      *
      * @param boolean $value
