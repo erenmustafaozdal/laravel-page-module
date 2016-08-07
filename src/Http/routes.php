@@ -110,6 +110,11 @@ Route::group([
         'as' => 'api.page.notPublish',
         'uses' => 'PageApiController@notPublish'
     ]);
+    // api update page content
+    Route::post('pages/{' . config('laravel-page-module.url.page') . '}/content-update',  [
+        'as' => 'api.page.contentUpdate',
+        'uses' => 'PageApiController@contentUpdate'
+    ]);
     Route::resource(config('laravel-page-module.url.page'), 'PageApiController', [
         'names' => [
             'index'     => 'api.page.index',

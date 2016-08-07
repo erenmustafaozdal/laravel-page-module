@@ -153,7 +153,7 @@ class PageApiController extends AdminBaseController
     }
 
     /**
-     * not publish user
+     * not publish model
      *
      * @param Page $page
      * @return \Illuminate\Http\Response
@@ -163,6 +163,21 @@ class PageApiController extends AdminBaseController
         return $this->updateModelPublish($page, false, [
             'success'   => NotPublishSuccess::class,
             'fail'      => NotPublishFail::class
+        ]);
+    }
+
+    /**
+     * update content page
+     *
+     * @param Page $page
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function contentUpdate(Page $page, Request $request)
+    {
+        return $this->updateModel($page, $request, [
+            'success'   => UpdateSuccess::class,
+            'fail'      => UpdateFail::class
         ]);
     }
 
