@@ -13,6 +13,10 @@ use ErenMustafaOzdal\LaravelPageModule\Events\Page\UpdateSuccess;
 use ErenMustafaOzdal\LaravelPageModule\Events\Page\UpdateFail;
 use ErenMustafaOzdal\LaravelPageModule\Events\Page\DestroySuccess;
 use ErenMustafaOzdal\LaravelPageModule\Events\Page\DestroyFail;
+use ErenMustafaOzdal\LaravelPageModule\Events\Page\PublishSuccess;
+use ErenMustafaOzdal\LaravelPageModule\Events\Page\PublishFail;
+use ErenMustafaOzdal\LaravelPageModule\Events\Page\NotPublishSuccess;
+use ErenMustafaOzdal\LaravelPageModule\Events\Page\NotPublishFail;
 // requests
 use ErenMustafaOzdal\LaravelPageModule\Http\Requests\Page\StoreRequest;
 use ErenMustafaOzdal\LaravelPageModule\Http\Requests\Page\UpdateRequest;
@@ -84,10 +88,20 @@ class PageController extends AdminBaseController
      */
     public function update(UpdateRequest $request, Page $page)
     {
-        return $this->updateModel($page,$request, [
+        $result = $this->updateModel($page,$request, [
             'success'   => UpdateSuccess::class,
             'fail'      => UpdateFail::class
         ], [],'show');
+
+        // publish
+        $request->has('is_publish') ? $this->updateModelPublish($page, true, [
+            'success'   => PublishSuccess::class,
+            'fail'      => PublishFail::class
+        ]) : $this->updateModelPublish($page, false, [
+            'success'   => NotPublishSuccess::class,
+            'fail'      => NotPublishFail::class
+        ]);
+        return $result;
     }
 
     /**

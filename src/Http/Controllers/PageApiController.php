@@ -92,7 +92,7 @@ class PageApiController extends AdminBaseController
             {
                 return $query->select(['id','name']);
             }
-        ])->where('id',$id)->first(['id','category_id','title','slug','description']);
+        ])->where('id',$id)->first(['id','category_id','title','slug','description','is_publish']);
     }
 
     /**
@@ -118,10 +118,20 @@ class PageApiController extends AdminBaseController
      */
     public function update(ApiUpdateRequest $request, Page $page)
     {
-        return $this->updateModel($page, $request, [
+        $result = $this->updateModel($page, $request, [
             'success'   => UpdateSuccess::class,
             'fail'      => UpdateFail::class
         ]);
+
+        // publish
+        $request->input('is_publish') === 'true' ? $this->updateModelPublish($page, true, [
+            'success'   => PublishSuccess::class,
+            'fail'      => PublishFail::class
+        ]) : $this->updateModelPublish($page, false, [
+            'success'   => NotPublishSuccess::class,
+            'fail'      => NotPublishFail::class
+        ]);
+        return $result;
     }
 
     /**
