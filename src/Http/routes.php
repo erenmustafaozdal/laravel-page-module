@@ -157,9 +157,8 @@ Route::group([
         ]
     ]);
     // category pages
-    Route::resource(config('laravel-page-module.url.page_category') . '/{id}/' . config('laravel-page-module.url.page'), 'PageApiController', [
-        'names' => [
-            'index'     => 'api.page_category.page.index',
-        ]
+    Route::get(config('laravel-page-module.url.page_category') . '/{id}/' . config('laravel-page-module.url.page'),  [
+        'as' => 'api.page_category.page.index',
+        'uses' => 'PageApiController@index'
     ]);
 });
