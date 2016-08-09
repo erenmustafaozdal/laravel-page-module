@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Page;
+use App\PageCategory;
 
 use ErenMustafaOzdal\LaravelModulesBase\Controllers\AdminBaseController;
 // events
@@ -29,23 +30,46 @@ class PageApiController extends AdminBaseController
     /**
      * Display a listing of the resource.
      *
-     * @param  Request  $request
+     * @param Request  $request
+     * @param integer|null $id
      * @return Datatables
      */
-    public function index(Request $request)
+    public function index(Request $request, $id = null)
     {
-        $pages = Page::with('category')->select(['id','category_id','slug','title','is_publish','created_at']);
+        // query
+        if (is_null($id)) {
+            $pages = Page::with('category');
+        } else {
+            $pages = PageCategory::findOrFail($id)->pages();
+        }
+        $pages->select(['id','category_id','slug','title','is_publish','created_at']);
+
         // if is filter action
         if ($request->has('action') && $request->input('action') === 'filter') {
             $pages->filter($request);
         }
 
+        // urls
+        $addUrls = [
+            'publish'       => ['route' => 'api.page.publish', 'id' => true],
+            'not_publish'   => ['route' => 'api.page.notPublish', 'id' => true],
+            'edit_page'     => ['route' => 'admin.page.edit', 'id' => true]
+        ];
+        if( ! is_null($id)) {
+            $addUrls['edit_page'] = [
+                'route'     => 'admin.page_category.page.edit',
+                'id'        => $id,
+                'model'     => config('laravel-page-module.url.page')
+            ];
+            $addUrls['show'] = [
+                'route'     => 'admin.page_category.page.show',
+                'id'        => $id,
+                'model'     => config('laravel-page-module.url.page')
+            ];
+        }
+
         $addColumns = [
-            'addUrls' => [
-                'publish'       => ['route' => 'api.page.publish', 'id' => true],
-                'not_publish'   => ['route' => 'api.page.notPublish', 'id' => true],
-                'edit_page'     => ['route' => 'admin.page.edit', 'id' => true]
-            ],
+            'addUrls'           => $addUrls,
             'status'            => function($model) { return $model->is_publish; },
         ];
         $editColumns = [

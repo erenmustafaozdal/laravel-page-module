@@ -38,7 +38,8 @@ class PageCategoryApiController extends AdminBaseController
 
         $addColumns = [
             'addUrls' => [
-                'edit_page'     => ['route' => 'admin.page_category.edit', 'id' => true]
+                'edit_page'     => ['route' => 'admin.page_category.edit', 'id' => true],
+                'relations'     => ['route' => 'admin.page_category.page.index', 'id' => true]
             ]
         ];
         $editColumns = [

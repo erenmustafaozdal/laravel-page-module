@@ -27,6 +27,16 @@ Route::group([
     ]);
 
     /*==========  Page Module  ==========*/
+    // admin publish page
+    Route::get('page/{' . config('laravel-page-module.url.page') . '}/publish',  [
+        'as' => 'admin.page.publish',
+        'uses' => 'PageController@publish'
+    ]);
+    // admin not publish page
+    Route::get('page/{' . config('laravel-page-module.url.page') . '}/not-publish',  [
+        'as' => 'admin.page.notPublish',
+        'uses' => 'PageController@notPublish'
+    ]);
     Route::resource(config('laravel-page-module.url.page'), 'PageController', [
         'names' => [
             'index'     => 'admin.page.index',
@@ -36,6 +46,29 @@ Route::group([
             'edit'      => 'admin.page.edit',
             'update'    => 'admin.page.update',
             'destroy'   => 'admin.page.destroy',
+        ]
+    ]);
+
+    /*==========  Category pages  ==========*/
+    // admin publish page
+    Route::get(config('laravel-page-module.url.page_category') . '/{id}/' . config('laravel-page-module.url.page') . '/{' . config('laravel-page-module.url.page') . '}/publish',  [
+        'as' => 'admin.page_category.page.publish',
+        'uses' => 'PageController@publish'
+    ]);
+    // admin not publish page
+    Route::get(config('laravel-page-module.url.page_category') . '/{id}/' . config('laravel-page-module.url.page') . '/{' . config('laravel-page-module.url.page') . '}/not-publish',  [
+        'as' => 'admin.page_category.page.notPublish',
+        'uses' => 'PageController@notPublish'
+    ]);
+    Route::resource(config('laravel-page-module.url.page_category') . '/{id}/' . config('laravel-page-module.url.page'), 'PageController', [
+        'names' => [
+            'index'     => 'admin.page_category.page.index',
+            'create'    => 'admin.page_category.page.create',
+            'store'     => 'admin.page_category.page.store',
+            'show'      => 'admin.page_category.page.show',
+            'edit'      => 'admin.page_category.page.edit',
+            'update'    => 'admin.page_category.page.update',
+            'destroy'   => 'admin.page_category.page.destroy',
         ]
     ]);
 });
@@ -121,6 +154,12 @@ Route::group([
             'store'     => 'api.page.store',
             'update'    => 'api.page.update',
             'destroy'   => 'api.page.destroy',
+        ]
+    ]);
+    // category pages
+    Route::resource(config('laravel-page-module.url.page_category') . '/{id}/' . config('laravel-page-module.url.page'), 'PageApiController', [
+        'names' => [
+            'index'     => 'api.page_category.page.index',
         ]
     ]);
 });
