@@ -4,6 +4,7 @@ namespace ErenMustafaOzdal\LaravelPageModule\Http\Controllers;
 
 use App\Http\Requests;
 use App\Page;
+use App\PageCategory;
 
 use ErenMustafaOzdal\LaravelModulesBase\Controllers\AdminBaseController;
 // events
@@ -26,72 +27,117 @@ class PageController extends AdminBaseController
     /**
      * Display a listing of the resource.
      *
+     * @param integer|null $id
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id = null)
     {
-        return view(config('laravel-page-module.views.page.index'));
+        if (is_null($id)) {
+            return view(config('laravel-page-module.views.page.index'));
+        }
+
+        $page_category = PageCategory::findOrFail($id);
+        return view(config('laravel-page-module.views.page.index'), compact('page_category'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
+     * @param integer|null $id
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id = null)
     {
-        return view(config('laravel-page-module.views.page.create'));
+        if (is_null($id)) {
+            return view(config('laravel-page-module.views.page.create'));
+        }
+
+        $page_category = PageCategory::findOrFail($id);
+        return view(config('laravel-page-module.views.page.create'), compact('page_category'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  StoreRequest  $request
+     * @param integer|null $id
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreRequest $request)
+    public function store(StoreRequest $request, $id = null)
     {
+        if (is_null($id)) {
+            $redirect = 'index';
+        } else {
+            $redirect = 'page_category.page.index';
+            $this->relatedModelId = $id;
+            $this->modelRouteRegex = config('laravel-page-module.url.page');
+        }
+
         return $this->storeModel(Page::class, $request, [
             'success'   => StoreSuccess::class,
             'fail'      => StoreFail::class
-        ], [], 'index');
+        ], [], $redirect);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  Page  $page
+     * @param integer|Page $firstId
+     * @param integer|null $secondId
      * @return \Illuminate\Http\Response
      */
-    public function show(Page $page)
+    public function show($firstId, $secondId = null)
     {
-        return view(config('laravel-page-module.views.page.show'), compact('page'));
+        $page = is_null($secondId) ? $firstId : $secondId;
+        if (is_null($secondId)) {
+            return view(config('laravel-page-module.views.page.show'), compact('page'));
+        }
+
+        $page_category = PageCategory::findOrFail($firstId);
+        return view(config('laravel-page-module.views.page.show'), compact('page', 'page_category'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Page $page
+     * @param integer|Page $firstId
+     * @param integer|null $secondId
      * @return \Illuminate\Http\Response
      */
-    public function edit(Page $page)
+    public function edit($firstId, $secondId = null)
     {
-        return view(config('laravel-page-module.views.page.edit'), compact('page'));
+        $page = is_null($secondId) ? $firstId : $secondId;
+        if (is_null($secondId)) {
+            return view(config('laravel-page-module.views.page.edit'), compact('page'));
+        }
+
+        $page_category = PageCategory::findOrFail($firstId);
+        return view(config('laravel-page-module.views.page.edit'), compact('page', 'page_category'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  UpdateRequest  $request
-     * @param  Page  $page
+     * @param integer|Page $firstId
+     * @param integer|null $secondId
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRequest $request, Page $page)
+    public function update(UpdateRequest $request, $firstId, $secondId = null)
     {
+        $page = is_null($secondId) ? $firstId : $secondId;
+        if (is_null($secondId)) {
+            $redirect = 'show';
+        } else {
+            $redirect = 'page_category.page.show';
+            $this->relatedModelId = $firstId;
+            $this->modelRouteRegex = config('laravel-page-module.url.page');
+        }
+
         $result = $this->updateModel($page,$request, [
             'success'   => UpdateSuccess::class,
             'fail'      => UpdateFail::class
-        ], [],'show');
+        ], [],$redirect);
 
         // publish
         $request->has('is_publish') ? $this->updateModelPublish($page, true, [
@@ -107,14 +153,70 @@ class PageController extends AdminBaseController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Page  $page
+     * @param integer|Page $firstId
+     * @param integer|null $secondId
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Page $page)
+    public function destroy($firstId, $secondId = null)
     {
+        $page = is_null($secondId) ? $firstId : $secondId;
+        if (is_null($secondId)) {
+            $redirect = 'index';
+        } else {
+            $redirect = 'page_category.page.index';
+            $this->relatedModelId = $firstId;
+            $this->modelRouteRegex = config('laravel-page-module.url.page');
+        }
+
         return $this->destroyModel($page, [
             'success'   => DestroySuccess::class,
             'fail'      => DestroyFail::class
-        ], 'index');
+        ], $redirect);
+    }
+
+    /**
+     * publish model
+     *
+     * @param integer|Page $firstId
+     * @param integer|null $secondId
+     * @return \Illuminate\Http\Response
+     */
+    public function publish($firstId, $secondId = null)
+    {
+        $page = is_null($secondId) ? $firstId : $secondId;
+        if (is_null($secondId)) {
+            $redirect = 'show';
+        } else {
+            $redirect = 'page_category.page.show';
+            $this->relatedModelId = $firstId;
+            $this->modelRouteRegex = config('laravel-page-module.url.page');
+        }
+        return $this->updateModelPublish($page, true, [
+            'success'   => PublishSuccess::class,
+            'fail'      => PublishFail::class
+        ],$redirect);
+    }
+
+    /**
+     * not publish model
+     *
+     * @param integer|Page $firstId
+     * @param integer|null $secondId
+     * @return \Illuminate\Http\Response
+     */
+    public function notPublish($firstId, $secondId = null)
+    {
+        $page = is_null($secondId) ? $firstId : $secondId;
+        if (is_null($secondId)) {
+            $redirect = 'show';
+        } else {
+            $redirect = 'page_category.page.show';
+            $this->relatedModelId = $firstId;
+            $this->modelRouteRegex = config('laravel-page-module.url.page');
+        }
+        return $this->updateModelPublish($page, false, [
+            'success'   => NotPublishSuccess::class,
+            'fail'      => NotPublishFail::class
+        ],$redirect);
     }
 }
