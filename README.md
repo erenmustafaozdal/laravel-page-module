@@ -79,6 +79,14 @@ php artisan migrate
 
 > :exclamation: Paket editör aracılığıyla veri tabanına kayıt yapmaktadır. Tahmin edebileceğin gibi Laravel Blade şablonunda `{{ }}` ile html etiketler ekranda metin olarak işlenecektir. Laravel'in `{!! !!}` şeklindeki kullanımı ise; güvenilir olmayan bir kişinin veri kaydetmesi sonucu **XSS** açığı oluşturabilir. Bunun önüne geçmek için **Laravel Page Module** [mewebstudio/Purifier](https://github.com/mewebstudio/Purifier) paketini kullanıyor. Sıradaki işlem olarak **Purifier** paketine yazma izni vermen gerekiyor.
 
+Önce bu paketin dosyalarını yayınlayalım
+
+```bash
+php artisan vendor:publish --provider="Mews\Purifier\PurifierServiceProvider"
+```
+
+Daha sonra da izni verelim.
+
 ```bash
 sudo chmod 777 vendor/ezyang/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer
 ```
