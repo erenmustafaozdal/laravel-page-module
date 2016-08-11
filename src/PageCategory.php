@@ -87,16 +87,14 @@ class PageCategory extends Model
     */
 
     /**
-     * Set slug encrypted
+     * Get the name attribute.
      *
-     * @param $slug
+     * @param  string $name
+     * @return string
      */
-    public function setSlugAttribute($slug)
+    public function getNameAttribute($name)
     {
-        if ( ! $slug) {
-            $slug = str_slug($this->name, '-');
-        }
-        $this->attributes['slug'] =  $slug;
+        return ucfirst_tr($name);
     }
 
     /**

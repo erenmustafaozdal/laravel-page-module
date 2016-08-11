@@ -111,6 +111,17 @@ class Page extends Model
     */
 
     /**
+     * Get the title attribute.
+     *
+     * @param  string $title
+     * @return string
+     */
+    public function getTitleAttribute($title)
+    {
+        return ucfirst_tr($title);
+    }
+
+    /**
      * Set slug encrypted
      *
      * @param $slug
@@ -133,6 +144,17 @@ class Page extends Model
     public function getContentAttribute($content)
     {
         return clean($content, 'iframe');
+    }
+
+    /**
+     * Get the read attribute.
+     *
+     * @param integer $read
+     * @return string
+     */
+    public function getReadAttribute($read)
+    {
+        return (int) $read;
     }
 
     /**
