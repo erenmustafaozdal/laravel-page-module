@@ -119,21 +119,21 @@ Route::group([
     if (config('laravel-page-module.routes.api.page_category_group')) {
         Route::post('page-category/group-action', [
             'as' => 'api.page_category.group',
-            'uses' => config('laravel-page-module.controller.api_namespace').'@group'
+            'uses' => config('laravel-page-module.controller.page_category_api').'@group'
         ]);
     }
     // data table detail row
     if (config('laravel-page-module.routes.api.page_category_detail')) {
         Route::get('page-category/{id}/detail', [
             'as' => 'api.page_category.detail',
-            'uses' => config('laravel-page-module.controller.api_namespace').'@detail'
+            'uses' => config('laravel-page-module.controller.page_category_api').'@detail'
         ]);
     }
     // get page category edit data for modal edit
     if (config('laravel-page-module.routes.api.page_category_fastEdit')) {
         Route::post('page-category/{id}/fast-edit', [
             'as' => 'api.page_category.fastEdit',
-            'uses' => config('laravel-page-module.controller.api_namespace').'@fastEdit'
+            'uses' => config('laravel-page-module.controller.page_category_api').'@fastEdit'
         ]);
     }
     // page category resource
