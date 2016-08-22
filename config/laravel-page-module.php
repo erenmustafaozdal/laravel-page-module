@@ -83,17 +83,17 @@ return [
         'page_category' => [
             'layout'                => 'laravel-modules-core::layouts.admin',       // user layout
             'index'                 => 'laravel-modules-core::page_category.index', // get page category index view blade
-            'create'                => 'laravel-modules-core::page_category.create',// get page category create view blade
+            'create'                => 'laravel-modules-core::page_category.operation',// get page category create view blade
             'show'                  => 'laravel-modules-core::page_category.show',  // get page category show view blade
-            'edit'                  => 'laravel-modules-core::page_category.edit',  // get page category edit view blade
+            'edit'                  => 'laravel-modules-core::page_category.operation',// get page category edit view blade
         ],
         // page view
         'page' => [
             'layout'                => 'laravel-modules-core::layouts.admin',       // user layout
             'index'                 => 'laravel-modules-core::page.index',          // get page index view blade
-            'create'                => 'laravel-modules-core::page.create',         // get page create view blade
+            'create'                => 'laravel-modules-core::page.operation',      // get page create view blade
             'show'                  => 'laravel-modules-core::page.show',           // get page show view blade
-            'edit'                  => 'laravel-modules-core::page.edit',           // get page edit view blade
+            'edit'                  => 'laravel-modules-core::page.operation',      // get page edit view blade
         ]
     ],
 ];

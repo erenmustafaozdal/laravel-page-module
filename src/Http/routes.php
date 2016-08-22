@@ -68,6 +68,7 @@ Route::group([
     // admin publish page
     if (config('laravel-page-module.routes.admin.category_pages_publish')) {
         Route::get(config('laravel-page-module.url.page_category') . '/{id}/' . config('laravel-page-module.url.page') . '/{' . config('laravel-page-module.url.page') . '}/publish', [
+            'middleware' => 'related_model:PageCategory,pages',
             'as' => 'admin.page_category.page.publish',
             'uses' => config('laravel-page-module.controller.page').'@publish'
         ]);
@@ -75,22 +76,25 @@ Route::group([
     // admin not publish page
     if (config('laravel-page-module.routes.admin.category_pages_notPublish')) {
         Route::get(config('laravel-page-module.url.page_category') . '/{id}/' . config('laravel-page-module.url.page') . '/{' . config('laravel-page-module.url.page') . '}/not-publish', [
+            'middleware' => 'related_model:PageCategory,pages',
             'as' => 'admin.page_category.page.notPublish',
             'uses' => config('laravel-page-module.controller.page').'@notPublish'
         ]);
     }
     if (config('laravel-page-module.routes.admin.category_pages')) {
-        Route::resource(config('laravel-page-module.url.page_category') . '/{id}/' . config('laravel-page-module.url.page'), config('laravel-page-module.controller.page'), [
-            'names' => [
-                'index' => 'admin.page_category.page.index',
-                'create' => 'admin.page_category.page.create',
-                'store' => 'admin.page_category.page.store',
-                'show' => 'admin.page_category.page.show',
-                'edit' => 'admin.page_category.page.edit',
-                'update' => 'admin.page_category.page.update',
-                'destroy' => 'admin.page_category.page.destroy',
-            ]
-        ]);
+        Route::group(['middleware' => 'related_model:PageCategory,pages'], function() {
+            Route::resource(config('laravel-page-module.url.page_category') . '/{id}/' . config('laravel-page-module.url.page'), config('laravel-page-module.controller.page'), [
+                'names' => [
+                    'index' => 'admin.page_category.page.index',
+                    'create' => 'admin.page_category.page.create',
+                    'store' => 'admin.page_category.page.store',
+                    'show' => 'admin.page_category.page.show',
+                    'edit' => 'admin.page_category.page.edit',
+                    'update' => 'admin.page_category.page.update',
+                    'destroy' => 'admin.page_category.page.destroy',
+                ]
+            ]);
+        });
     }
 });
 
@@ -211,6 +215,7 @@ Route::group([
     // category pages
     if (config('laravel-page-module.routes.api.category_pages_index')) {
         Route::get(config('laravel-page-module.url.page_category') . '/{id}/' . config('laravel-page-module.url.page'), [
+            'middleware' => 'related_model:PageCategory,pages',
             'as' => 'api.page_category.page.index',
             'uses' => config('laravel-page-module.controller.page_api').'@index'
         ]);

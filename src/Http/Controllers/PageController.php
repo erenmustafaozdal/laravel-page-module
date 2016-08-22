@@ -48,12 +48,13 @@ class PageController extends AdminBaseController
      */
     public function create($id = null)
     {
+        $operation = 'create';
         if (is_null($id)) {
-            return view(config('laravel-page-module.views.page.create'));
+            return view(config('laravel-page-module.views.page.create'), compact('operation'));
         }
 
         $page_category = PageCategory::findOrFail($id);
-        return view(config('laravel-page-module.views.page.create'), compact('page_category'));
+        return view(config('laravel-page-module.views.page.create'), compact('page_category','operation'));
     }
 
     /**
@@ -106,13 +107,14 @@ class PageController extends AdminBaseController
      */
     public function edit($firstId, $secondId = null)
     {
+        $operation = 'edit';
         $page = is_null($secondId) ? $firstId : $secondId;
         if (is_null($secondId)) {
-            return view(config('laravel-page-module.views.page.edit'), compact('page'));
+            return view(config('laravel-page-module.views.page.edit'), compact('page','operation'));
         }
 
         $page_category = PageCategory::findOrFail($firstId);
-        return view(config('laravel-page-module.views.page.edit'), compact('page', 'page_category'));
+        return view(config('laravel-page-module.views.page.edit'), compact('page', 'page_category','operation'));
     }
 
     /**

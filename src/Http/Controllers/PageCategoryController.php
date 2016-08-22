@@ -36,7 +36,8 @@ class PageCategoryController extends AdminBaseController
      */
     public function create()
     {
-        return view(config('laravel-page-module.views.page_category.create'));
+        $operation = 'create';
+        return view(config('laravel-page-module.views.page_category.create'), compact('operation'));
     }
 
     /**
@@ -72,7 +73,8 @@ class PageCategoryController extends AdminBaseController
      */
     public function edit(PageCategory $page_category)
     {
-        return view(config('laravel-page-module.views.page_category.edit'), compact('page_category'));
+        $operation = 'edit';
+        return view(config('laravel-page-module.views.page_category.edit'), compact('page_category','operation'));
     }
 
     /**
