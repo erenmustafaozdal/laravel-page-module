@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\PageCategory;
 
-use ErenMustafaOzdal\LaravelModulesBase\Controllers\AdminBaseController;
+use ErenMustafaOzdal\LaravelModulesBase\Controllers\BaseController;
 // events
 use ErenMustafaOzdal\LaravelPageModule\Events\PageCategory\StoreSuccess;
 use ErenMustafaOzdal\LaravelPageModule\Events\PageCategory\StoreFail;
@@ -20,8 +20,18 @@ use ErenMustafaOzdal\LaravelPageModule\Http\Requests\PageCategory\ApiStoreReques
 use ErenMustafaOzdal\LaravelPageModule\Http\Requests\PageCategory\ApiUpdateRequest;
 
 
-class PageCategoryApiController extends AdminBaseController
+class PageCategoryApiController extends BaseController
 {
+    /**
+     * default urls of the model
+     *
+     * @var array
+     */
+    private $urls = [
+        'edit_page'     => ['route' => 'admin.page_category.edit', 'id' => true],
+        'relations'     => ['route' => 'admin.page_category.page.index', 'id' => true]
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -37,10 +47,7 @@ class PageCategoryApiController extends AdminBaseController
         }
 
         $addColumns = [
-            'addUrls' => [
-                'edit_page'     => ['route' => 'admin.page_category.edit', 'id' => true],
-                'relations'     => ['route' => 'admin.page_category.page.index', 'id' => true]
-            ]
+            'addUrls' => $this->urls
         ];
         $editColumns = [
             'created_at'        => function($model) { return $model->created_at_table; }

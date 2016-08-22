@@ -8,7 +8,7 @@ use App\Http\Requests;
 use App\Page;
 use App\PageCategory;
 
-use ErenMustafaOzdal\LaravelModulesBase\Controllers\AdminBaseController;
+use ErenMustafaOzdal\LaravelModulesBase\Controllers\BaseController;
 // events
 use ErenMustafaOzdal\LaravelPageModule\Events\Page\StoreSuccess;
 use ErenMustafaOzdal\LaravelPageModule\Events\Page\StoreFail;
@@ -25,8 +25,19 @@ use ErenMustafaOzdal\LaravelPageModule\Http\Requests\Page\ApiStoreRequest;
 use ErenMustafaOzdal\LaravelPageModule\Http\Requests\Page\ApiUpdateRequest;
 
 
-class PageApiController extends AdminBaseController
+class PageApiController extends BaseController
 {
+    /**
+     * default urls of the model
+     *
+     * @var array
+     */
+    private $urls = [
+        'publish'       => ['route' => 'api.page.publish', 'id' => true],
+        'not_publish'   => ['route' => 'api.page.notPublish', 'id' => true],
+        'edit_page'     => ['route' => 'admin.page.edit', 'id' => true]
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -50,22 +61,20 @@ class PageApiController extends AdminBaseController
         }
 
         // urls
-        $addUrls = [
-            'publish'       => ['route' => 'api.page.publish', 'id' => true],
-            'not_publish'   => ['route' => 'api.page.notPublish', 'id' => true],
-            'edit_page'     => ['route' => 'admin.page.edit', 'id' => true]
-        ];
+        $addUrls = $this->urls;
         if( ! is_null($id)) {
-            $addUrls['edit_page'] = [
-                'route'     => 'admin.page_category.page.edit',
-                'id'        => $id,
-                'model'     => config('laravel-page-module.url.page')
-            ];
-            $addUrls['show'] = [
-                'route'     => 'admin.page_category.page.show',
-                'id'        => $id,
-                'model'     => config('laravel-page-module.url.page')
-            ];
+            array_merge($addUrls, [
+                'edit_page' => [
+                    'route'     => 'admin.page_category.page.edit',
+                    'id'        => $id,
+                    'model'     => config('laravel-page-module.url.page')
+                ],
+                'show' => [
+                    'route'     => 'admin.page_category.page.show',
+                    'id'        => $id,
+                    'model'     => config('laravel-page-module.url.page')
+                ]
+            ]);
         }
 
         $addColumns = [
