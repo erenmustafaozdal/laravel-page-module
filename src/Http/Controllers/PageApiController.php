@@ -136,10 +136,11 @@ class PageApiController extends BaseController
      */
     public function store(ApiStoreRequest $request)
     {
-        return $this->storeModel(Page::class, $request, [
+        $this->setEvents([
             'success'   => StoreSuccess::class,
             'fail'      => StoreFail::class
         ]);
+        return $this->storeModel(Page::class);
     }
 
     /**
@@ -151,20 +152,7 @@ class PageApiController extends BaseController
      */
     public function update(ApiUpdateRequest $request, Page $page)
     {
-        $result = $this->updateModel($page, $request, [
-            'success'   => UpdateSuccess::class,
-            'fail'      => UpdateFail::class
-        ]);
-
-        // publish
-        $request->input('is_publish') === 'true' ? $this->updateModelPublish($page, true, [
-            'success'   => PublishSuccess::class,
-            'fail'      => PublishFail::class
-        ]) : $this->updateModelPublish($page, false, [
-            'success'   => NotPublishSuccess::class,
-            'fail'      => NotPublishFail::class
-        ]);
-        return $result;
+        return $this->updateAlias($page);
     }
 
     /**
@@ -175,10 +163,11 @@ class PageApiController extends BaseController
      */
     public function destroy(Page $page)
     {
-        return $this->destroyModel($page, [
+        $this->setEvents([
             'success'   => DestroySuccess::class,
             'fail'      => DestroyFail::class
         ]);
+        return $this->destroyModel($page);
     }
 
     /**
@@ -189,7 +178,10 @@ class PageApiController extends BaseController
      */
     public function publish(Page $page)
     {
-        return $this->updateModelPublish($page, true, [
+        $this->setOperationRelation([
+            [ 'relation_type'     => 'not', 'datas' => [ 'is_publish'    => true ] ]
+        ]);
+        return $this->updateAlias($page, [
             'success'   => PublishSuccess::class,
             'fail'      => PublishFail::class
         ]);
@@ -203,7 +195,10 @@ class PageApiController extends BaseController
      */
     public function notPublish(Page $page)
     {
-        return $this->updateModelPublish($page, false, [
+        $this->setOperationRelation([
+            [ 'relation_type'     => 'not', 'datas' => [ 'is_publish'    => false ] ]
+        ]);
+        return $this->updateAlias($page, [
             'success'   => NotPublishSuccess::class,
             'fail'      => NotPublishFail::class
         ]);
@@ -218,10 +213,7 @@ class PageApiController extends BaseController
      */
     public function contentUpdate(Page $page, Request $request)
     {
-        return $this->updateModel($page, $request, [
-            'success'   => UpdateSuccess::class,
-            'fail'      => UpdateFail::class
-        ]);
+        return $this->updateAlias($page);
     }
 
     /**
@@ -232,21 +224,7 @@ class PageApiController extends BaseController
      */
     public function group(Request $request)
     {
-        $events = [];
-        switch($request->input('action')) {
-            case 'publish':
-                $events['success'] = PublishSuccess::class;
-                $events['fail'] = PublishFail::class;
-                break;
-            case 'not_publish':
-                $events['success'] = NotPublishSuccess::class;
-                $events['fail'] = NotPublishFail::class;
-                break;
-            case 'destroy':
-                break;
-        }
-        $action = camel_case($request->input('action')) . 'GroupAction';
-        if ( $this->$action(Page::class, $request->input('id'), $events) ) {
+        if ( $this->groupAlias(Page::class) ) {
             return response()->json(['result' => 'success']);
         }
         return response()->json(['result' => 'error']);

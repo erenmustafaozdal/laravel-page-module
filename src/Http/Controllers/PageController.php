@@ -6,7 +6,7 @@ use App\Http\Requests;
 use App\Page;
 use App\PageCategory;
 
-use ErenMustafaOzdal\LaravelModulesBase\Controllers\AdminBaseController;
+use ErenMustafaOzdal\LaravelModulesBase\Controllers\BaseController;
 // events
 use ErenMustafaOzdal\LaravelPageModule\Events\Page\StoreSuccess;
 use ErenMustafaOzdal\LaravelPageModule\Events\Page\StoreFail;
@@ -22,7 +22,7 @@ use ErenMustafaOzdal\LaravelPageModule\Events\Page\NotPublishFail;
 use ErenMustafaOzdal\LaravelPageModule\Http\Requests\Page\StoreRequest;
 use ErenMustafaOzdal\LaravelPageModule\Http\Requests\Page\UpdateRequest;
 
-class PageController extends AdminBaseController
+class PageController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -70,14 +70,14 @@ class PageController extends AdminBaseController
             $redirect = 'index';
         } else {
             $redirect = 'page_category.page.index';
-            $this->relatedModelId = $id;
-            $this->modelRouteRegex = config('laravel-page-module.url.page');
+            $this->setRelationRouteParam($id, config('laravel-page-module.url.page'));
         }
 
-        return $this->storeModel(Page::class, $request, [
+        $this->setEvents([
             'success'   => StoreSuccess::class,
             'fail'      => StoreFail::class
-        ], [], $redirect);
+        ]);
+        return $this->storeModel(Page::class,$redirect);
     }
 
     /**
@@ -132,24 +132,14 @@ class PageController extends AdminBaseController
             $redirect = 'show';
         } else {
             $redirect = 'page_category.page.show';
-            $this->relatedModelId = $firstId;
-            $this->modelRouteRegex = config('laravel-page-module.url.page');
+            $this->setRelationRouteParam($firstId, config('laravel-page-module.url.page'));
         }
 
-        $result = $this->updateModel($page,$request, [
+        $this->setEvents([
             'success'   => UpdateSuccess::class,
             'fail'      => UpdateFail::class
-        ], [],$redirect);
-
-        // publish
-        $request->has('is_publish') ? $this->updateModelPublish($page, true, [
-            'success'   => PublishSuccess::class,
-            'fail'      => PublishFail::class
-        ]) : $this->updateModelPublish($page, false, [
-            'success'   => NotPublishSuccess::class,
-            'fail'      => NotPublishFail::class
         ]);
-        return $result;
+        return $this->updateModel($page,$redirect);
     }
 
     /**
@@ -166,14 +156,14 @@ class PageController extends AdminBaseController
             $redirect = 'index';
         } else {
             $redirect = 'page_category.page.index';
-            $this->relatedModelId = $firstId;
-            $this->modelRouteRegex = config('laravel-page-module.url.page');
+            $this->setRelationRouteParam($firstId, config('laravel-page-module.url.page'));
         }
 
-        return $this->destroyModel($page, [
+        $this->setEvents([
             'success'   => DestroySuccess::class,
             'fail'      => DestroyFail::class
-        ], $redirect);
+        ]);
+        return $this->destroyModel($page,$redirect);
     }
 
     /**

@@ -5,7 +5,7 @@ namespace ErenMustafaOzdal\LaravelPageModule\Http\Controllers;
 use App\Http\Requests;
 use App\PageCategory;
 
-use ErenMustafaOzdal\LaravelModulesBase\Controllers\AdminBaseController;
+use ErenMustafaOzdal\LaravelModulesBase\Controllers\BaseController;
 // events
 use ErenMustafaOzdal\LaravelPageModule\Events\PageCategory\StoreSuccess;
 use ErenMustafaOzdal\LaravelPageModule\Events\PageCategory\StoreFail;
@@ -17,7 +17,7 @@ use ErenMustafaOzdal\LaravelPageModule\Events\PageCategory\DestroyFail;
 use ErenMustafaOzdal\LaravelPageModule\Http\Requests\PageCategory\StoreRequest;
 use ErenMustafaOzdal\LaravelPageModule\Http\Requests\PageCategory\UpdateRequest;
 
-class PageCategoryController extends AdminBaseController
+class PageCategoryController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -48,10 +48,11 @@ class PageCategoryController extends AdminBaseController
      */
     public function store(StoreRequest $request)
     {
-        return $this->storeModel(PageCategory::class, $request, [
+        $this->setEvents([
             'success'   => StoreSuccess::class,
             'fail'      => StoreFail::class
-        ], [], 'index');
+        ]);
+        return $this->storeModel(PageCategory::class, 'index');
     }
 
     /**
@@ -86,10 +87,11 @@ class PageCategoryController extends AdminBaseController
      */
     public function update(UpdateRequest $request, PageCategory $page_category)
     {
-        return $this->updateModel($page_category,$request, [
+        $this->setEvents([
             'success'   => UpdateSuccess::class,
             'fail'      => UpdateFail::class
-        ], [],'show');
+        ]);
+        return $this->updateModel($page_category,'show');
     }
 
     /**
@@ -100,9 +102,10 @@ class PageCategoryController extends AdminBaseController
      */
     public function destroy(PageCategory $page_category)
     {
-        return $this->destroyModel($page_category, [
+        $this->setEvents([
             'success'   => DestroySuccess::class,
             'fail'      => DestroyFail::class
-        ], 'index');
+        ]);
+        return $this->destroyModel($page_category, 'index');
     }
 }

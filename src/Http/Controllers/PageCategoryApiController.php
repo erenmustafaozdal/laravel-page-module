@@ -94,10 +94,11 @@ class PageCategoryApiController extends BaseController
      */
     public function store(ApiStoreRequest $request)
     {
-        return $this->storeModel(PageCategory::class, $request, [
+        $this->setEvents([
             'success'   => StoreSuccess::class,
             'fail'      => StoreFail::class
         ]);
+        return $this->storeModel(PageCategory::class);
     }
 
     /**
@@ -109,10 +110,11 @@ class PageCategoryApiController extends BaseController
      */
     public function update(ApiUpdateRequest $request, PageCategory $page_category)
     {
-        return $this->updateModel($page_category, $request, [
+        $this->setEvents([
             'success'   => UpdateSuccess::class,
             'fail'      => UpdateFail::class
         ]);
+        return $this->updateModel($page_category);
     }
 
     /**
@@ -123,10 +125,11 @@ class PageCategoryApiController extends BaseController
      */
     public function destroy(PageCategory $page_category)
     {
-        return $this->destroyModel($page_category, [
+        $this->setEvents([
             'success'   => DestroySuccess::class,
             'fail'      => DestroyFail::class
         ]);
+        return $this->destroyModel($page_category);
     }
 
     /**
@@ -137,7 +140,7 @@ class PageCategoryApiController extends BaseController
      */
     public function group(Request $request)
     {
-        if ( $this->destroyGroupAction(PageCategory::class, $request->input('id'), []) ) {
+        if ( $this->groupAlias(PageCategory::class) ) {
             return response()->json(['result' => 'success']);
         }
         return response()->json(['result' => 'error']);
