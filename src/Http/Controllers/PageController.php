@@ -180,10 +180,13 @@ class PageController extends BaseController
             $redirect = 'show';
         } else {
             $redirect = 'page_category.page.show';
-            $this->relatedModelId = $firstId;
-            $this->modelRouteRegex = config('laravel-page-module.url.page');
+            $this->setRelationRouteParam($firstId, config('laravel-page-module.url.page'));
         }
-        return $this->updateModelPublish($page, true, [
+
+        $this->setOperationRelation([
+            [ 'relation_type'     => 'not', 'datas' => [ 'is_publish'    => true ] ]
+        ]);
+        return $this->updateAlias($page, [
             'success'   => PublishSuccess::class,
             'fail'      => PublishFail::class
         ],$redirect);
@@ -203,12 +206,15 @@ class PageController extends BaseController
             $redirect = 'show';
         } else {
             $redirect = 'page_category.page.show';
-            $this->relatedModelId = $firstId;
-            $this->modelRouteRegex = config('laravel-page-module.url.page');
+            $this->setRelationRouteParam($firstId, config('laravel-page-module.url.page'));
         }
-        return $this->updateModelPublish($page, false, [
-            'success'   => NotPublishSuccess::class,
-            'fail'      => NotPublishFail::class
+
+        $this->setOperationRelation([
+            [ 'relation_type'     => 'not', 'datas' => [ 'is_publish'    => false ] ]
+        ]);
+        return $this->updateAlias($page, [
+            'success'   => PublishSuccess::class,
+            'fail'      => PublishFail::class
         ],$redirect);
     }
 }
