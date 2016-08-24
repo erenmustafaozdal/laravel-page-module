@@ -63,7 +63,7 @@ class PageApiController extends BaseController
         // urls
         $addUrls = $this->urls;
         if( ! is_null($id)) {
-            array_merge($addUrls, [
+            $addUrls = array_merge($addUrls, [
                 'edit_page' => [
                     'route'     => 'admin.page_category.page.edit',
                     'id'        => $id,
