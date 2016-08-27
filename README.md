@@ -223,7 +223,7 @@ Görünümler içinde `PageCategory` ve `Page` modellerinin özellik ve metot ku
 ####### $page_category->pages `Collection`
 `hasMany()` metoduyla `App\Page` modeliyle ilişkiyi sağlar
 
-####### $page_category->name `string`
+####### $page_category->name_uc_first `string`
 Baş harfleri büyük formatta sayfa kategorisinin adını döndürür
 
 ####### $page_category->created_at `string`
@@ -254,7 +254,7 @@ Sayfa kategorisinin güncellenme tarihini `display`(last_login_for_humans) ve `t
 ####### $page->category `App\PageCategory`
 `belongsTo()` metoduyla `App\PageCategory` modeliyle ilişkiyi sağlar
 
-####### $page->title `string`
+####### $page->title_uc_first `string`
 Baş harfleri büyük formatta sayfa başlığı
 
 ####### $page->slug `string`
