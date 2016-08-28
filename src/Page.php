@@ -4,9 +4,12 @@ namespace ErenMustafaOzdal\LaravelPageModule;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use ErenMustafaOzdal\LaravelModulesBase\Traits\ModelDataTrait;
 
 class Page extends Model
 {
+    use ModelDataTrait;
+
     /**
      * The database table used by the model.
      *
