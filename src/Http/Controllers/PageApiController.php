@@ -39,6 +39,24 @@ class PageApiController extends BaseController
     ];
 
     /**
+     * default relation urls of the model
+     *
+     * @var array
+     */
+    private $relationUrls = [
+        'edit_page' => [
+            'route'     => 'admin.page_category.page.edit',
+            'id'        => 0,
+            'model'     => ''
+        ],
+        'show' => [
+            'route'     => 'admin.page_category.page.show',
+            'id'        => 0,
+            'model'     => ''
+        ]
+    ];
+
+    /**
      * Display a listing of the resource.
      *
      * @param Request  $request
@@ -63,18 +81,11 @@ class PageApiController extends BaseController
         // urls
         $addUrls = $this->urls;
         if( ! is_null($id)) {
-            $addUrls = array_merge($addUrls, [
-                'edit_page' => [
-                    'route'     => 'admin.page_category.page.edit',
-                    'id'        => $id,
-                    'model'     => config('laravel-page-module.url.page')
-                ],
-                'show' => [
-                    'route'     => 'admin.page_category.page.show',
-                    'id'        => $id,
-                    'model'     => config('laravel-page-module.url.page')
-                ]
-            ]);
+            $this->relationUrls['edit_page']['id'] = $id;
+            $this->relationUrls['edit_page']['model'] = config('laravel-page-module.url.page');
+            $this->relationUrls['show']['id'] = $id;
+            $this->relationUrls['show']['model'] = config('laravel-page-module.url.page');
+            $addUrls = array_merge($addUrls, $this->relationUrls);
         }
 
         $addColumns = [
