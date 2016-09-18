@@ -56,7 +56,7 @@ return [
             'sub_category_pages'        => true,        // Did subcategory page admin route will be used
         ],
         'api' => [
-            'page_category'             => false,        // Is the route to be used categories api
+            'page_category'             => true,        // Is the route to be used categories api
             'page'                      => true,        // Is the route to be used pages api
             'sub_category_pages'        => true,        // Did subcategory page api route will be used
         ]
