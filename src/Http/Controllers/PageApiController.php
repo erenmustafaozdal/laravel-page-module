@@ -93,7 +93,9 @@ class PageApiController extends BaseController
             'status'            => function($model) { return $model->is_publish; },
         ];
         $editColumns = [
-            'created_at'        => function($model) { return $model->created_at_table; }
+            'created_at'        => function($model) { return $model->created_at_table; },
+            'title'             => function($model) { return $model->title_uc_first; },
+            'category.name'     => function($model) { return $model->category->name_uc_first; },
         ];
         $removeColumns = ['is_publish','category_id'];
         return $this->getDatatables($pages, $addColumns, $editColumns, $removeColumns);
@@ -117,7 +119,9 @@ class PageApiController extends BaseController
 
         $editColumns = [
             'created_at'    => function($model) { return $model->created_at_table; },
-            'updated_at'    => function($model) { return $model->updated_at_table; }
+            'updated_at'    => function($model) { return $model->updated_at_table; },
+            'title'         => function($model) { return $model->title_uc_first; },
+            'category.name' => function($model) { return $model->category->name_uc_first; },
         ];
         return $this->getDatatables($page, [], $editColumns, []);
     }

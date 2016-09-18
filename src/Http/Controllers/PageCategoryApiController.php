@@ -50,6 +50,7 @@ class PageCategoryApiController extends BaseController
             'addUrls' => $this->urls
         ];
         $editColumns = [
+            'name'              => function($model) { return $model->name_uc_first; },
             'created_at'        => function($model) { return $model->created_at_table; }
         ];
         $removeColumns = [];
@@ -68,6 +69,7 @@ class PageCategoryApiController extends BaseController
         $page_category = PageCategory::where('id',$id)->select(['id','name', 'created_at','updated_at']);
 
         $editColumns = [
+            'name'          => function($model) { return $model->name_uc_first; },
             'created_at'    => function($model) { return $model->created_at_table; },
             'updated_at'    => function($model) { return $model->updated_at_table; }
         ];
@@ -154,6 +156,12 @@ class PageCategoryApiController extends BaseController
      */
     public function models(Request $request)
     {
-        return PageCategory::where('name', 'like', "%{$request->input('query')}%")->get(['id','name']);
+        return PageCategory::where('name', 'like', "%{$request->input('query')}%")
+            ->get(['id','name'])
+            ->map(function($item,$key)
+            {
+                $item->name = $item->name_uc_first;
+                return $item;
+            });
     }
 }
