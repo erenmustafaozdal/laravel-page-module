@@ -78,17 +78,18 @@ class LaravelPageModuleServiceProvider extends ServiceProvider
         $default['routes']['api']['page_category_detail'] = $route;
         $default['routes']['api']['page_category_fastEdit'] = $route;
         // api page routes
-        $route = $config['routes']['api']['page'];
-        $default['routes']['api']['page'] = $route;
-        $default['routes']['api']['page_group'] = $route;
-        $default['routes']['api']['page_detail'] = $route;
-        $default['routes']['api']['page_fastEdit'] = $route;
-        $default['routes']['api']['page_publish'] = $route;
-        $default['routes']['api']['page_notPublish'] = $route;
-        $default['routes']['api']['page_contentUpdate'] = $route;
+        $model = $config['routes']['api']['page'];
+        $default['routes']['api']['page'] = $model;
         // api sub page categories pages
-        $route = $config['routes']['api']['sub_category_pages'];
-        $default['routes']['api']['category_pages_index'] = $route;
+        $subModel = $config['routes']['api']['sub_category_pages'];
+        $default['routes']['api']['category_pages_index'] = $subModel;
+
+        $default['routes']['api']['page_group'] = $model || $subModel;
+        $default['routes']['api']['page_detail'] = $model || $subModel;
+        $default['routes']['api']['page_fastEdit'] = $model || $subModel;
+        $default['routes']['api']['page_publish'] = $model || $subModel;
+        $default['routes']['api']['page_notPublish'] = $model || $subModel;
+        $default['routes']['api']['page_contentUpdate'] = $model || $subModel;
 
         $config['routes'] = $default['routes'];
 
