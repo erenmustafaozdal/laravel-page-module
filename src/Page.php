@@ -114,30 +114,6 @@ class Page extends Model
     */
 
     /**
-     * Get the title attribute.
-     *
-     * @param  string $title
-     * @return string
-     */
-    public function getTitleAttribute($title)
-    {
-        return ucfirst_tr($title);
-    }
-
-    /**
-     * Set slug encrypted
-     *
-     * @param $slug
-     */
-    public function setSlugAttribute($slug)
-    {
-        if ( ! $slug) {
-            $slug = str_slug($this->title, '-');
-        }
-        $this->attributes['slug'] =  $slug;
-    }
-
-    /**
      * Get the content attribute.
      * clean iframe for xss atack
      *
@@ -158,95 +134,5 @@ class Page extends Model
     public function getReadAttribute($read)
     {
         return (int) $read;
-    }
-
-    /**
-     * Set the is_publish attribute.
-     *
-     * @param boolean $value
-     * @return string
-     */
-    public function setIsPublishAttribute($value)
-    {
-        $this->attributes['is_publish'] = $value == 1 || $value === 'true' || $value === true ? true : false;
-    }
-
-    /**
-     * Get the is_publish attribute.
-     *
-     * @param boolean $value
-     * @return string
-     */
-    public function getIsPublishAttribute($value)
-    {
-        return $value == 1 ? true : false;
-    }
-
-    /**
-     * Get the created_at attribute.
-     *
-     * @param  $date
-     * @return string
-     */
-    public function getCreatedAtAttribute($date)
-    {
-        return Carbon::parse($date)->format(config('laravel-page-module.date_format'));
-    }
-
-    /**
-     * Get the created_at attribute for humans.
-     *
-     * @return string
-     */
-    public function getCreatedAtForHumansAttribute()
-    {
-        return Carbon::parse($this->created_at)->diffForHumans();
-    }
-
-    /**
-     * Get the created_at attribute for datatable.
-     *
-     * @return array
-     */
-    public function getCreatedAtTableAttribute()
-    {
-        return [
-            'display'       => $this->created_at_for_humans,
-            'timestamp'     => Carbon::parse($this->created_at)->timestamp,
-        ];
-    }
-
-    /**
-     * Get the updated_at attribute.
-     *
-     * @param  $date
-     * @return string
-     */
-    public function getUpdatedAtAttribute($date)
-    {
-        return Carbon::parse($date)->format(config('laravel-page-module.date_format'));
-    }
-
-    /**
-     * Get the updated_at attribute for humans.
-     *
-     * @return string
-     */
-    public function getUpdatedAtForHumansAttribute()
-    {
-        return Carbon::parse($this->updated_at)->diffForHumans();
-    }
-
-    /**
-     * Get the updated_at attribute for datatable.
-     *
-     * @return array
-     */
-    public function getUpdatedAtTableAttribute()
-    {
-        return [
-            'display'       => $this->updated_at_for_humans,
-            'timestamp'     => Carbon::parse($this->updated_at)->timestamp,
-        ];
     }
 }
