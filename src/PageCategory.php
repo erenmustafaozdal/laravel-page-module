@@ -22,7 +22,14 @@ class PageCategory extends Model
      *
      * @var array
      */
-    protected $fillable = ['name'];
+    protected $fillable = [
+        'name',
+        'datatable_filter',
+        'datatable_tools',
+        'datatable_fast_add',
+        'datatable_group_action',
+        'datatable_detail',
+    ];
 
 
 

@@ -17,6 +17,12 @@ class MigrationLaravelPageModule extends Migration
             $table->string('name');
             $table->timestamps();
 
+            $table->boolean('datatable_filter')->default(1);
+            $table->boolean('datatable_tools')->default(1);
+            $table->boolean('datatable_fast_add')->default(1);
+            $table->boolean('datatable_group_action')->default(1);
+            $table->boolean('datatable_detail')->default(1);
+
             $table->engine = 'InnoDB';
         });
 
