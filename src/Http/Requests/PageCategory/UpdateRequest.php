@@ -14,10 +14,11 @@ class UpdateRequest extends Request
      */
     public function authorize()
     {
-        if (Sentinel::getUser()->is_super_admin || Sentinel::hasAccess('admin.page_category.update')) {
-            return true;
+        $hackedRoute = 'admin.page_category.update';
+        if ( ! is_null($this->segment(4))) {
+            $hackedRoute .= '#####' .$this->segment(3);
         }
-        return false;
+        return hasPermission($hackedRoute);
     }
 
     /**
