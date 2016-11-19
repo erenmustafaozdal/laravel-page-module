@@ -86,4 +86,87 @@ return [
             'edit'                  => 'laravel-modules-core::page.operation',      // get page edit view blade
         ]
     ],
+
+
+
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Permissions
+    |--------------------------------------------------------------------------
+    */
+    'permissions' => [
+        'page_category' => [
+            'title'                 => 'Sayfa Kategorileri',
+            'routes' => [
+                'admin.page_category.index' => [
+                    'title'         => 'Veri Tablosu',
+                    'description'   => 'Bu izne sahip olanlar sayfa kategorilerini veri tablosunda listeleyebilir.',
+                ],
+                'admin.page_category.create' => [
+                    'title'         => 'Ekleme',
+                    'description'   => 'Bu izne sahip olanlar sayfa kategorisi ekleyebilir',
+                ],
+                'admin.page_category.show' => [
+                    'title'         => 'Gösterme',
+                    'description'   => 'Bu izne sahip olanlar sayfa kategorisi bilgilerini görüntüleyebilir',
+                ],
+                'admin.page_category.edit' => [
+                    'title'         => 'Düzenleme',
+                    'description'   => 'Bu izne sahip olanlar sayfa kategorisini düzenleyebilir',
+                ],
+                'admin.page_category.destroy' => [
+                    'title'         => 'Silme',
+                    'description'   => 'Bu izne sahip olanlar sayfa kategorisini silebilir',
+                ],
+                'api.page_category.models' => [
+                    'title'         => 'Rolleri Listeleme',
+                    'description'   => 'Bu izne sahip olanlar sayfa kategorilerini bazı seçim kutularında listeleyebilir',
+                ],
+                'api.page_category.group' => [
+                    'title'         => 'Toplu İşlem',
+                    'description'   => 'Bu izne sahip olanlar sayfa kategorileri veri tablosunda toplu işlem yapabilir',
+                ],
+                'api.page_category.detail' => [
+                    'title'         => 'Detaylar',
+                    'description'   => 'Bu izne sahip olanlar sayfa kategorileri tablosunda detayını görebilir.',
+                ],
+            ],
+        ],
+        'page' => [
+            'title'                 => 'Sayfalar',
+            'routes' => [
+                'admin.page.index' => [
+                    'title'         => 'Veri Tablosu',
+                    'description'   => 'Bu izne sahip olanlar sayfaları veri tablosunda listeleyebilir.',
+                ],
+                'admin.page.create' => [
+                    'title'         => 'Ekleme',
+                    'description'   => 'Bu izne sahip olanlar sayfa ekleyebilir',
+                ],
+                'admin.page.show' => [
+                    'title'         => 'Gösterme',
+                    'description'   => 'Bu izne sahip olanlar sayfa bilgilerini görüntüleyebilir',
+                ],
+                'admin.page.edit' => [
+                    'title'         => 'Düzenleme',
+                    'description'   => 'Bu izne sahip olanlar sayfa bilgilerini düzenleyebilir',
+                ],
+                'admin.page.destroy' => [
+                    'title'         => 'Silme',
+                    'description'   => 'Bu izne sahip olanlar sayfayı silebilir',
+                ],
+                'api.page.group' => [
+                    'title'         => 'Toplu İşlem',
+                    'description'   => 'Bu izne sahip olanlar sayfalar veri tablosunda toplu işlem yapabilir',
+                ],
+                'api.page.detail' => [
+                    'title'         => 'Detaylar',
+                    'description'   => 'Bu izne sahip olanlar sayfalar tablosunda detayını görebilir.',
+                ]
+            ],
+        ]
+    ],
 ];
