@@ -101,37 +101,65 @@ return [
         'page_category' => [
             'title'                 => 'Sayfa Kategorileri',
             'routes' => [
-                'admin.page_category.index' => [
+                'admin.page.index' => [
                     'title'         => 'Veri Tablosu',
-                    'description'   => 'Bu izne sahip olanlar sayfa kategorilerini veri tablosunda listeleyebilir.',
+                    'description'   => 'Bu izne sahip olanlar sayfa kategorileri veri tablosu sayfasına gidebilir.',
                 ],
-                'admin.page_category.create' => [
+                'admin.page.create' => [
+                    'title'         => 'Ekleme Sayfası',
+                    'description'   => 'Bu izne sahip olanlar sayfa kategorisi ekleme sayfasına gidebilir',
+                ],
+                'admin.page.store' => [
                     'title'         => 'Ekleme',
                     'description'   => 'Bu izne sahip olanlar sayfa kategorisi ekleyebilir',
                 ],
-                'admin.page_category.show' => [
+                'admin.page.show' => [
                     'title'         => 'Gösterme',
                     'description'   => 'Bu izne sahip olanlar sayfa kategorisi bilgilerini görüntüleyebilir',
                 ],
-                'admin.page_category.edit' => [
+                'admin.page.edit' => [
+                    'title'         => 'Düzenleme Sayfası',
+                    'description'   => 'Bu izne sahip olanlar sayfa kategorisini düzenleme sayfasına gidebilir',
+                ],
+                'admin.page.update' => [
                     'title'         => 'Düzenleme',
                     'description'   => 'Bu izne sahip olanlar sayfa kategorisini düzenleyebilir',
                 ],
-                'admin.page_category.destroy' => [
+                'admin.page.destroy' => [
                     'title'         => 'Silme',
                     'description'   => 'Bu izne sahip olanlar sayfa kategorisini silebilir',
                 ],
-                'api.page_category.models' => [
-                    'title'         => 'Rolleri Listeleme',
+                'api.page.index' => [
+                    'title'         => 'Listeleme',
+                    'description'   => 'Bu izne sahip olanlar sayfa kategorilerini veri tablosunda listeleyebilir',
+                ],
+                'api.page.store' => [
+                    'title'         => 'Hızlı Ekleme',
+                    'description'   => 'Bu izne sahip olanlar sayfa kategorilerini veri tablosunda hızlı ekleyebilir.',
+                ],
+                'api.page.update' => [
+                    'title'         => 'Hızlı Düzenleme',
+                    'description'   => 'Bu izne sahip olanlar sayfa kategorilerini veri tablosunda hızlı düzenleyebilir.',
+                ],
+                'api.page.destroy' => [
+                    'title'         => 'Silme',
+                    'description'   => 'Bu izne sahip olanlar sayfa kategorilerini veri tablosunda silebilir',
+                ],
+                'api.page.models' => [
+                    'title'         => 'Seçim İçin Listeleme',
                     'description'   => 'Bu izne sahip olanlar sayfa kategorilerini bazı seçim kutularında listeleyebilir',
                 ],
-                'api.page_category.group' => [
+                'api.page.group' => [
                     'title'         => 'Toplu İşlem',
                     'description'   => 'Bu izne sahip olanlar sayfa kategorileri veri tablosunda toplu işlem yapabilir',
                 ],
-                'api.page_category.detail' => [
+                'api.page.detail' => [
                     'title'         => 'Detaylar',
                     'description'   => 'Bu izne sahip olanlar sayfa kategorileri tablosunda detayını görebilir.',
+                ],
+                'api.page.fastEdit' => [
+                    'title'         => 'Hızlı Düzenleme Bilgileri',
+                    'description'   => 'Bu izne sahip olanlar sayfa kategorileri tablosunda hızlı düzenleme amacıyla bilgileri getirebilir.',
                 ],
             ],
         ],
@@ -140,9 +168,13 @@ return [
             'routes' => [
                 'admin.page.index' => [
                     'title'         => 'Veri Tablosu',
-                    'description'   => 'Bu izne sahip olanlar sayfaları veri tablosunda listeleyebilir.',
+                    'description'   => 'Bu izne sahip olanlar sayfalar veri tablosu sayfasına gidebilir.',
                 ],
                 'admin.page.create' => [
+                    'title'         => 'Ekleme Sayfası',
+                    'description'   => 'Bu izne sahip olanlar sayfa ekleme sayfasına gidebilir',
+                ],
+                'admin.page.store' => [
                     'title'         => 'Ekleme',
                     'description'   => 'Bu izne sahip olanlar sayfa ekleyebilir',
                 ],
@@ -151,12 +183,40 @@ return [
                     'description'   => 'Bu izne sahip olanlar sayfa bilgilerini görüntüleyebilir',
                 ],
                 'admin.page.edit' => [
+                    'title'         => 'Düzenleme Sayfası',
+                    'description'   => 'Bu izne sahip olanlar sayfayı düzenleme sayfasına gidebilir',
+                ],
+                'admin.page.update' => [
                     'title'         => 'Düzenleme',
-                    'description'   => 'Bu izne sahip olanlar sayfa bilgilerini düzenleyebilir',
+                    'description'   => 'Bu izne sahip olanlar sayfayı düzenleyebilir',
                 ],
                 'admin.page.destroy' => [
                     'title'         => 'Silme',
                     'description'   => 'Bu izne sahip olanlar sayfayı silebilir',
+                ],
+                'admin.page.publish' => [
+                    'title'         => 'Yayınlama',
+                    'description'   => 'Bu izne sahip olanlar sayfayı yayınlayabilir',
+                ],
+                'admin.page.notPublish' => [
+                    'title'         => 'Yayından Kaldırma',
+                    'description'   => 'Bu izne sahip olanlar sayfayı yayından kaldırabilir',
+                ],
+                'api.page.index' => [
+                    'title'         => 'Listeleme',
+                    'description'   => 'Bu izne sahip olanlar sayfaları veri tablosunda listeleyebilir',
+                ],
+                'api.page.store' => [
+                    'title'         => 'Hızlı Ekleme',
+                    'description'   => 'Bu izne sahip olanlar sayfaları veri tablosunda hızlı ekleyebilir.',
+                ],
+                'api.page.update' => [
+                    'title'         => 'Hızlı Düzenleme',
+                    'description'   => 'Bu izne sahip olanlar sayfaları veri tablosunda hızlı düzenleyebilir.',
+                ],
+                'api.page.destroy' => [
+                    'title'         => 'Silme',
+                    'description'   => 'Bu izne sahip olanlar sayfaları veri tablosunda silebilir',
                 ],
                 'api.page.group' => [
                     'title'         => 'Toplu İşlem',
@@ -165,7 +225,19 @@ return [
                 'api.page.detail' => [
                     'title'         => 'Detaylar',
                     'description'   => 'Bu izne sahip olanlar sayfalar tablosunda detayını görebilir.',
-                ]
+                ],
+                'api.page.fastEdit' => [
+                    'title'         => 'Hızlı Düzenleme Bilgileri',
+                    'description'   => 'Bu izne sahip olanlar sayfalar tablosunda hızlı düzenleme amacıyla bilgileri getirebilir.',
+                ],
+                'api.page.publish' => [
+                    'title'         => 'Hızlı Yayınlama',
+                    'description'   => 'Bu izne sahip olanlar sayfalar tablosunda sayfayı yayınlanyabilir.',
+                ],
+                'api.page.notPublish' => [
+                    'title'         => 'Hızlı Yayından Kaldırma',
+                    'description'   => 'Bu izne sahip olanlar sayfalar tablosunda sayfayı yayından kaldırabilir.',
+                ],
             ],
         ]
     ],
