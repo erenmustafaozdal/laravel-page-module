@@ -65,6 +65,7 @@ class PageApiController extends BaseController
      */
     public function index(Request $request, $id = null)
     {
+        dd($id);
         // query
         if (is_null($id)) {
             $pages = Page::with('category');
