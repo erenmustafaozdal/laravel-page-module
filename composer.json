@@ -13,11 +13,11 @@
             "ErenMustafaOzdal\\LaravelPageModule\\": "src/"
         }
     },
-    "minimum-stability": "beta",
+    "minimum-stability": "dev",
     "require": {
         "php": ">=5.5.9",
         "illuminate/support": "~5",
-        "erenmustafaozdal/laravel-modules-base": "~0.1",
+        "erenmustafaozdal/laravel-modules-base": "dev-master",
         "mews/purifier": "~2.0"
     },
     "require-dev": {
