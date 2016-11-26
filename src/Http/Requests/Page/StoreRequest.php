@@ -16,7 +16,7 @@ class StoreRequest extends Request
     {
         $hackedRoute = 'admin.page.store';
         if ( ! is_null($this->segment(4))) {
-            $hackedRoute .= '#####' .$this->segment(3);
+            $hackedRoute = 'admin.page_category.page.store#####' .$this->segment(3);
         }
         return hasPermission($hackedRoute);
     }
