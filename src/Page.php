@@ -25,7 +25,6 @@ class Page extends Model
     protected $fillable = [
         'category_id',
         'title',
-        'slug',
         'content',
         'description',
         'meta_title',
@@ -60,10 +59,6 @@ class Page extends Model
         // filter title
         if ($request->has('title')) {
             $query->where('title', 'like', "%{$request->get('title')}%");
-        }
-        // filter slug
-        if ($request->has('slug')) {
-            $query->where('slug', 'like', "%{$request->get('slug')}%");
         }
         // filter category
         if ($request->has('category')) {

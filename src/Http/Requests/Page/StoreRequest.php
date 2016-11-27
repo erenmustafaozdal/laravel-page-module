@@ -31,7 +31,6 @@ class StoreRequest extends Request
         return [
             'category_id'       => 'required|integer',
             'title'             => 'required|max:255',
-            'slug'              => 'alpha_dash|max:255|unique:pages',
             'description'       => 'max:255',
             'meta_title'        => 'max:255',
             'meta_description'  => 'max:255',

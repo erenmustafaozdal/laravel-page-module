@@ -71,7 +71,7 @@ class PageApiController extends BaseController
         } else {
             $pages = PageCategory::findOrFail($id)->pages();
         }
-        $pages->select(['id','category_id','slug','title','is_publish','created_at']);
+        $pages->select(['id','category_id','title','is_publish','created_at']);
 
         // if is filter action
         if ($request->has('action') && $request->input('action') === 'filter') {
@@ -115,7 +115,7 @@ class PageApiController extends BaseController
             {
                 return $query->select(['id','name']);
             }
-        ])->where('id',$id)->select(['id','category_id','title','slug','description','content','created_at','updated_at']);
+        ])->where('id',$id)->select(['id','category_id','title','description','content','created_at','updated_at']);
 
         $editColumns = [
             'created_at'    => function($model) { return $model->created_at_table; },
