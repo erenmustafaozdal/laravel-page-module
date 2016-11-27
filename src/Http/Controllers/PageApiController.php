@@ -115,7 +115,7 @@ class PageApiController extends BaseController
             {
                 return $query->select(['id','name']);
             }
-        ])->where('id',$id)->select(['id','category_id','title','description','content','created_at','updated_at']);
+        ])->where('id',$id)->select(['id','category_id','title','content','created_at','updated_at']);
 
         $editColumns = [
             'created_at'    => function($model) { return $model->created_at_table; },
