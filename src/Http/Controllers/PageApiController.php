@@ -140,7 +140,7 @@ class PageApiController extends BaseController
             {
                 return $query->select(['id','name']);
             }
-        ])->where('id',$id)->first(['id','category_id','title','slug','description','is_publish']);
+        ])->where('id',$id)->first(['id','category_id','title','is_publish']);
     }
 
     /**
