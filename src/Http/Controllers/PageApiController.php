@@ -239,9 +239,22 @@ class PageApiController extends BaseController
      */
     public function group(Request $request)
     {
+        $this->clearCache();
         if ( $this->groupAlias(Page::class) ) {
             return response()->json(['result' => 'success']);
         }
         return response()->json(['result' => 'error']);
+    }
+
+    /**
+     * clear cache
+     *
+     * @return void
+     */
+    private function clearCache()
+    {
+        foreach(\App\Page::all(['id'])->keyBy('id')->keys() as $id) {
+            \Cache::forget(implode('_',['pages',$id]));
+        }
     }
 }
